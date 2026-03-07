@@ -15,7 +15,7 @@ export const createTask = async (req, res) => {
       title,
       description,
       completed: completed || false,
-      owner: req.user._id
+      owner: req.user._id,
     });
 
     await task.save();

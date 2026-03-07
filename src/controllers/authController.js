@@ -9,7 +9,9 @@ export const register = async (req, res) => {
 
     // Validate input
     if (!name || !email || !password) {
-      return res.status(400).json({ message: "Please provide all required fields" });
+      return res
+        .status(400)
+        .json({ message: "Please provide all required fields" });
     }
 
     // Check if user exists
@@ -26,7 +28,7 @@ export const register = async (req, res) => {
     const user = new User({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
     await user.save();
@@ -36,7 +38,7 @@ export const register = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      createdAt: user.createdAt
+      createdAt: user.createdAt,
     });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
@@ -50,7 +52,9 @@ export const login = async (req, res) => {
 
     // Validate input
     if (!email || !password) {
-      return res.status(400).json({ message: "Please provide email and password" });
+      return res
+        .status(400)
+        .json({ message: "Please provide email and password" });
     }
 
     // Find user
@@ -67,7 +71,7 @@ export const login = async (req, res) => {
 
     // Generate JWT
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d"
+      expiresIn: "1d",
     });
 
     // Return token

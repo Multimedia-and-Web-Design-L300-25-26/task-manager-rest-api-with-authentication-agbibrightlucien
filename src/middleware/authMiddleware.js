@@ -12,9 +12,11 @@ const authMiddleware = async (req, res, next) => {
   try {
     // Extract token from Authorization header
     const authHeader = req.header("Authorization");
-    
+
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ message: "No token, authorization denied" });
+      return res
+        .status(401)
+        .json({ message: "No token, authorization denied" });
     }
 
     const token = authHeader.replace("Bearer ", "");
@@ -24,14 +26,14 @@ const authMiddleware = async (req, res, next) => {
 
     // Find user
     const user = await User.findById(decoded.id).select("-password");
-    
+
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
 
     // Attach user to req.user
     req.user = user;
-    
+
     next();
   } catch (error) {
     res.status(401).json({ message: "Token is not valid" });

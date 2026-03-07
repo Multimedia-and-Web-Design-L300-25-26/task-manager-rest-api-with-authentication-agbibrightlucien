@@ -11,24 +11,24 @@ import mongoose from "mongoose";
 const taskSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
-    type: String
+    type: String,
   },
   completed: {
     type: Boolean,
-    default: false
+    default: false,
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true
+    required: true,
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 const Task = mongoose.model("Task", taskSchema);
